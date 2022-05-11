@@ -9,7 +9,8 @@ namespace MultiThreading
 {
     public class TikTok
     {
-        private readonly AutoResetEvent _autoEvent = new AutoResetEvent(false);
+        private readonly AutoResetEvent _autoEventOne = new AutoResetEvent(false);
+        private readonly AutoResetEvent _autoEventTwo = new AutoResetEvent(false);
         private int _maxCount = 10;
 
         public TikTok()
@@ -22,7 +23,8 @@ namespace MultiThreading
             for (int i = 0; i < _maxCount; i++)
             {
                 Console.WriteLine("Tik");
-                _autoEvent.WaitOne(2000);
+                _autoEventTwo.Set();
+                _autoEventOne.WaitOne();
             }
         }
 
@@ -30,8 +32,9 @@ namespace MultiThreading
         {
             for (int i = 0; i < _maxCount; i++)
             {
+                _autoEventTwo.WaitOne();
                 Console.WriteLine("Tok");
-                _autoEvent.WaitOne(2000);
+                _autoEventOne.Set();
             }
         }
 
@@ -66,7 +69,8 @@ namespace MultiThreading
                 if (even % 2 == 0)
                 {
                     Console.WriteLine($"{even}");
-                    _autoEvent.WaitOne(2000);
+                    _autoEventTwo.Set();
+                    _autoEventOne.WaitOne();
                 }
             }
         }
@@ -77,8 +81,9 @@ namespace MultiThreading
             {
                 if (odd % 2 == 1)
                 {
+                    _autoEventTwo.WaitOne();
                     Console.WriteLine($"{odd}");
-                    _autoEvent.WaitOne(2000);
+                    _autoEventOne.Set();
                 }
             }
         }
