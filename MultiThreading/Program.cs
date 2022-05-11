@@ -16,7 +16,6 @@ namespace MultiThreading
             threadTok.Join();
             Console.WriteLine("Printed successfully");
             Console.Read();
-            
         }
     }
 }
