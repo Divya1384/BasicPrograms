@@ -1,10 +1,12 @@
-﻿namespace PubSubUsingDelegates
+﻿using System;
+
+namespace PubSubUsingDelegates
 {
     public class Publisher
     {
-        public delegate void PublishMessageHandler(object o, MessageEventArgs e);
-
-        public event PublishMessageHandler PublishMessageEvent;
+        //public delegate void PublishMessageHandler(object o, MessageEventArgs e);
+        //public event PublishMessageHandler PublishMessageEvent;
+        public event Action<object, MessageEventArgs> PublishMessageEvent;
 
         public void PublishMessage(string message)
         {
